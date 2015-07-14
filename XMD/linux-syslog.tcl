@@ -2,14 +2,28 @@
 # 
 # Author: Rob Armstrong, Xilinx, Inc.
 # 
-# 2014 (c) Xilinx, Inc. This file is licensed uner the terms of the GNU
+# 2015 (c) Xilinx, Inc. This file is licensed uner the terms of the GNU
 # General Public License version 2. This program is licensed "as is"
 # without any warranty of any kind, whether express or implied.
 # 
 # This is a utility script for the Xilinx Microprocessor Debugger (XMD) that
 # allows text dumping of the Linux kernel log buffer via memory peek/poke operations.
-# It is current as of PetaLinux release 2013.10.
-# 
+# It is current as of PetaLinux release 2015.2.
+#
+# Usage:
+#
+#  Determine the location of the Linux system log buffer in memory. Typically, this can be
+#  found in the file System.map generated in the Linux kernel build directory. For Xilinx
+#  PetaLinux projects, this will be under build/linux/kernel/<kernel_name>/System.map. Grep
+#  the file for __log_buf.
+#
+#  Usage within XMD is as follows:
+#   % source linux-syslog.tcl
+#   % syslog <__log_buf address>
+#
+#   e.g.
+#   % syslog 0x40900000
+#
 # TODO:
 # 1. Enable more interesting filtering of log buffer messages (filter by message level, etc)
 #
