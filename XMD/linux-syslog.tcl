@@ -42,18 +42,18 @@ proc logmsg_flags { bufaddr } {
     incr startaddr 4
     set ts_nsec_high [linux_mem_read $startaddr]
     incr startaddr 4
-    set ts_nsec [expr [expr $ts_nsec_high << 32] + $ts_nsec_low]
+    set ts_nsec [expr {[expr {$ts_nsec_high << 32}] + $ts_nsec_low}]
     
     set mval [linux_mem_read $startaddr]
-    set text_len [expr [expr $mval >> 16] & 0xffff]
-    set len [expr $mval & 0xffff]
+    set text_len [expr {[expr {$mval >> 16}] & 0xffff}]
+    set len [expr {$mval & 0xffff}]
     incr startaddr 4
     
     set mval [linux_mem_read $startaddr]  
-    set dict_len [expr $mval & 0xffff]
-    set facility [expr [expr $mval >> 16] & 0xff]
-    set flags [expr [expr $mval >> 24] & 0x1f]
-    set level [expr [expr $mval >> 28] & 0x07]
+    set dict_len [expr {$mval & 0xffff}]
+    set facility [expr {[expr {$mval >> 16}] & 0xff}]
+    set flags [expr {[expr {$mval >> 24}] & 0x1f}]
+    set level [expr {[expr {$mval >> 28}] & 0x07}]
     
     puts "Message at $bufaddr:"
     puts "  Occurs at time: $ts_nsec"
@@ -64,14 +64,14 @@ proc logmsg_flags { bufaddr } {
     puts "  Level:          $level"
     
     incr startaddr 4
-    set endaddr [expr $startaddr + $text_len]
+    set endaddr [expr {$startaddr + $text_len}]
     
     while {$startaddr < $endaddr} {
         set mval [linux_mem_read $startaddr]
         set shift 0
         
         while {$shift <= 24} {
-            set char [expr [expr $mval >> $shift] & 0xff]
+            set char [expr {[expr {$mval >> $shift}] & 0xff}]
             incr shift 8
             set text_char [format "%c" $char]
             puts -nonewline "$text_char"
@@ -93,28 +93,28 @@ proc syslog { bufaddr } {
         incr addr 4
         set ts_nsec_high [linux_mem_read $addr]
         incr addr 4
-        set ts_nsec [expr [expr $ts_nsec_high << 32] + $ts_nsec_low]
+        set ts_nsec [expr {[expr {$ts_nsec_high << 32}] + $ts_nsec_low}]
         
         set mval [linux_mem_read $addr]
-        set text_len [expr [expr $mval >> 16] & 0xffff]
-        set len [expr $mval & 0xffff]
+        set text_len [expr {[expr {$mval >> 16}] & 0xffff}]
+        set len [expr {$mval & 0xffff}]
         incr addr 4
         
         # The following are currently unused, but could be used to filter
         # by log level, etc.
         set mval [linux_mem_read $addr]  
-        set dict_len [expr $mval & 0xffff]
-        set facility [expr [expr $mval >> 16] & 0xff]
-        set flags [expr [expr $mval >> 24] & 0x1f]
-        set level [expr [expr $mval >> 28] & 0x07]
+        set dict_len [expr {$mval & 0xffff}]
+        set facility [expr {[expr {$mval >> 16}] & 0xff}]
+        set flags [expr {[expr {$mval >> 24}] & 0x1f}]
+        set level [expr {[expr {$mval >> 28}] & 0x07}]
         
         if {$len == 0} {
             return
         }
         
         incr addr 4
-        set endaddr [expr $addr + $text_len]
-        incr endaddr [expr $text_len % 4]
+        set endaddr [expr {$addr + $text_len}]
+        incr endaddr [expr {$text_len % 4}]
         
         set chars 0
         
@@ -126,7 +126,7 @@ proc syslog { bufaddr } {
             set shift 0
             
             while {$shift <= 24} {
-                set char [expr [expr $mval >> $shift] & 0xff]
+                set char [expr {[expr {$mval >> $shift}] & 0xff}]
                 incr shift 8
                 set text_char [format "%c" $char]
                 if {$chars < $text_len} {
@@ -137,7 +137,7 @@ proc syslog { bufaddr } {
             
             incr addr 4
         }
-        set addr [expr $startaddr + $len]
+        set addr [expr {$startaddr + $len}]
         
         puts ""
     }
