@@ -102,11 +102,12 @@ proc syslog { bufaddr } {
         
         # The following are currently unused, but could be used to filter
         # by log level, etc.
-        set mval [linux_mem_read $addr]  
-        set dict_len [expr {$mval & 0xffff}]
-        set facility [expr {[expr {$mval >> 16}] & 0xff}]
-        set flags [expr {[expr {$mval >> 24}] & 0x1f}]
-        set level [expr {[expr {$mval >> 28}] & 0x07}]
+	
+        # set mval [linux_mem_read $addr]  
+        # set dict_len [expr {$mval & 0xffff}]
+        # set facility [expr {[expr {$mval >> 16}] & 0xff}]
+        # set flags [expr {[expr {$mval >> 24}] & 0x1f}]
+        # set level [expr {[expr {$mval >> 28}] & 0x07}]
         
         if {$len == 0} {
             return
