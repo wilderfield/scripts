@@ -20,7 +20,7 @@
 #  PetaLinux projects, this will be under build/linux/kernel/<kernel_name>/System.map. Grep
 #  the file for __log_buf.
 #
-#  Usage within XMD is as follows:
+#  Usage within XSDB is as follows:
 #   % source linux-syslog.tcl
 #   % syslog <__log_buf address>
 #
