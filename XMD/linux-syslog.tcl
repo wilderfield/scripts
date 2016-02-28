@@ -8,7 +8,6 @@
 # 
 # This is a utility script for the Xilinx Microprocessor Debugger (XMD) that
 # allows text dumping of the Linux kernel log buffer via memory peek/poke operations.
-# It is current as of PetaLinux release 2015.2.
 #
 # Usage:
 #

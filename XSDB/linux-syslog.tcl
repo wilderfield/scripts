@@ -8,8 +8,6 @@
 # 
 # This is a utility script for the Xilinx System Debugger (XSDB) that
 # allows text dumping of the Linux kernel log buffer via memory peek/poke operations.
-# It is current as of PetaLinux release 2015.2 (or Xilinx Github kernel tag
-# xilinx-v2015.2.1).
 #
 # When using newer software, XSDB is preferred over XMD.
 #
