@@ -33,7 +33,7 @@ set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
    puts ""
-   common::send_msg_id "BD_TCL-1002" "WARNING" "This script was generated using Vivado <$scripts_vivado_version> without IP versions in the create_bd_cell commands, but is now being run in <$current_vivado_version> of Vivado. There may have been major IP version changes between Vivado <$scripts_vivado_version> and <$current_vivado_version>, which could impact the parameter settings of the IPs."
+    common::send_msg_id "BD_TCL-1002" "WARNING" "This script was last tested in Vivado <$scripts_vivado_version>. You are running <$current_vivado_version>. There may be differences in the underlying IP that result in incorrect behavior. Please verify all IP configurations and connections. You have been warned!"
 
 }
 
