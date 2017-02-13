@@ -212,7 +212,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net vtc_vsync_out [get_bd_pins vtc/vsync_out] [get_bd_pins vid_in_axi4s/vid_vsync]
   connect_bd_net -net tpg_interrupt [get_bd_pins irq_tpg] [get_bd_pins tpg/interrupt]
   connect_bd_net -net sys_clk [get_bd_pins sys_clk] [get_bd_pins vdma/s_axi_lite_aclk] [get_bd_pins vtc/s_axi_aclk]
-  connect_bd_net -net vid_sys_clk [get_bd_pins vid_sys_clk] [get_bd_pins vdma/m_axi_s2mm_aclk] [get_bd_pins vdma/s_axis_s2mm_aclk] [get_bd_pins tpg_in_axis_subset_converter/aclk] [get_bd_pins tpg/ap_clk] [get_bd_pins vid_in_axi4s/aclk]
+  connect_bd_net -net vid_sys_clk [get_bd_pins vid_sys_clk] [get_bd_pins vdma/m_axi_s2mm_aclk] [get_bd_pins vdma/s_axis_s2mm_aclk] [get_bd_pins video_bus_slice/aclk] [get_bd_pins tpg/ap_clk] [get_bd_pins vid_in_axi4s/aclk]
 
   # Restore current instance
   current_bd_instance $oldCurInst
