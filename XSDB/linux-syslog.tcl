@@ -20,7 +20,7 @@
 #
 #  Usage within XSDB is as follows:
 #   % source linux-syslog.tcl
-#   % syslog <__log_buf address>
+#   % syslog <__log_buf address> <log_file_name>
 #
 #   e.g.
 #   % syslog 0x40900000
@@ -34,9 +34,15 @@ proc linux_mem_read_text { address length } {
     return [mrd -value -bin -size b $address $length]
 }
 
-proc syslog { bufaddr } {
+proc syslog { bufaddr logfile} {
     set addr $bufaddr
-
+    
+    if {$logfile == ""} {
+      set fp stdout
+    } else {
+      set fp [open $logfile "w"]
+    }
+    
     while {1} {
 	set startaddr $addr
 	
@@ -68,8 +74,9 @@ proc syslog { bufaddr } {
         # Uncomment below to display a timestamp before the message
         # puts -nonewline "$ts_nsec: "
         
-	puts [linux_mem_read_text $addr $text_len]
+	puts $fp [linux_mem_read_text $addr $text_len]
 	
         set addr [expr {$startaddr + $len}]
     }
+    close $fp
 }
